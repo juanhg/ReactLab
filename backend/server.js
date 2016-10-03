@@ -15,13 +15,13 @@ routerController.initRouter(router);
 app.use('/api', router);  
 app.use(router);
 
-mongoose.connect('mongodb://localhost/tvshows', function(err, res) {  
-  if(err) {onError(error)};
+mongoose.connect('mongodb://localhost/myapp', function(error, res) {  
+  if(error) {onError(error)};
   initServer(app);
 });
 
 onError = function(error){
-    console.log('ERROR: connecting to Database. ' + err);
+    console.log('ERROR: connecting to Database. ' + error);
 };
 
 initServer = function(app){
