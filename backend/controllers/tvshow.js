@@ -29,7 +29,7 @@ exports.findAllTVShows = function (req, response) {
 //GET - Return a TVShow with specified ID
 exports.findById = function (req, response) {
     console.log('GET /tvshow/' + req.params.id);
-    TVShow.findById(req.params.id, function (err, tvshow) {
+    TVShow.findById(req.params.id, function (error, tvshow) {
         handler.handleResponse(response, tvshow, error);
     });
 };
