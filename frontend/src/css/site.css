@@ -1,1 +1,14 @@
 /* entry point css */
+.avatar {
+   max-width: 80px
+}
+
+.member-page {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.about-page {
+    padding-left: 50px;
+    padding-right: 50px;
+}
