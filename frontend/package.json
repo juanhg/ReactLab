@@ -1,0 +1,28 @@
+{
+  "name": "reactboiler",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.5",
+    "jquery": "^2.1.4",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "webpack-dev-server": "^1.10.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.9.0",
+    "style-loader": "^0.13.0",
+    "ts-loader": "^0.8.1",
+    "tsd": "^0.6.5",
+    "typescript": "^1.8.10",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "~1.10.1"
+  }
+}
