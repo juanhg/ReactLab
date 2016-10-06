@@ -2,6 +2,7 @@ import * as React from 'react';
 import MemberEntity from '../../api/memberEntity';
 import memberAPI from '../../api/memberAPI';
 import MemberRow from './memberRow';
+import MemberEditableRow from './memberEditableRow';
 
 interface Props extends React.Props<MembersPage> {
 }
@@ -56,6 +57,7 @@ export default class MembersPage extends React.Component<Props, State> {
             </tr>
           </thead>
           <tbody>
+           <MemberEditableRow/>
             {
               this.state.members.map((member: MemberEntity) =>
                 <MemberRow key={member.id} member = {member}/>
