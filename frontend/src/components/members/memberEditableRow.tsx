@@ -23,6 +23,9 @@ var MemberEditableRow = React.createClass({
                         <option value="Others">Other</option>
                     </select>
                 </td>
+                <td>
+                    <button type="button" className="btn btn-success">Add</button>
+                </td>
             </tr>
         );
     }

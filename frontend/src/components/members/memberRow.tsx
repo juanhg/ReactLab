@@ -27,6 +27,9 @@ export default class MemberRow extends React.Component<Props, {}> {
             <td>
              <span>{this.props.member.gender}</span>
            </td>
+           <td>
+             <button type="button" className="btn btn-danger">Remove</button>
+           </td>
          </tr>
        );
   }
