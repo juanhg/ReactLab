@@ -12,5 +12,5 @@ export default class MemberEntity {
     this.avatar_url = "";
     this.gender = "";
     this.age;
-  }
+  }  
 }

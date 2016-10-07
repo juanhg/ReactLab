@@ -22,7 +22,6 @@ export default class MembersPage extends React.Component<Props, State> {
     this.state = { members: [] };
   }
 
-
   // Changing to componentDidMount to handle initial ajax request response
   public componentDidMount() {
     var promise: Q.Promise<MemberEntity[]> = memberAPI.getAllMembersAsync();
@@ -33,6 +32,15 @@ export default class MembersPage extends React.Component<Props, State> {
       this.setState({ members: members })
     }.bind(this))
   }
+
+  public saveMember(member) {
+    var myMembers = this.state.members;
+    myMembers.push(member)
+    this.setState({
+      members: myMembers
+    });
+  }
+
 
   public render() {
 
@@ -57,7 +65,7 @@ export default class MembersPage extends React.Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-           <MemberEditableRow/>
+            <MemberEditableRow onSave={this.saveMember.bind(this) }/>
             {
               this.state.members.map((member: MemberEntity) =>
                 <MemberRow key={member.id} member = {member}/>
