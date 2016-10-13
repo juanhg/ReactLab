@@ -39,7 +39,7 @@ export default class MembersPage extends React.Component<Props, State> {
 
   @autobind
   public saveMember(member) {
-    this.setState({members: this.state.members.concat([member])});
+    this.setState({members: [member].concat(this.state.members)});
   }
 
   public render() {
