@@ -20,6 +20,8 @@ export default class MembersPage extends React.Component<Props, State> {
     super(props);
     // set initial state
     this.state = { members: [] };
+
+    this.saveMember = this.saveMember.bind(this);
   }
 
   // Changing to componentDidMount to handle initial ajax request response
@@ -34,13 +36,9 @@ export default class MembersPage extends React.Component<Props, State> {
   }
 
   public saveMember(member) {
-    var myMembers = this.state.members;
-    myMembers.push(member)
-    this.setState({
-      members: myMembers
-    });
+    //concat returns a new array
+    this.setState({members: this.state.members.concat([member])});
   }
-
 
   public render() {
 
@@ -65,7 +63,7 @@ export default class MembersPage extends React.Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            <MemberEditableRow onSave={this.saveMember.bind(this) }/>
+            <MemberEditableRow onSave={this.saveMember}/>
             {
               this.state.members.map((member: MemberEntity) =>
                 <MemberRow key={member.id} member = {member}/>

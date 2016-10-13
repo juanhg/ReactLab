@@ -3,14 +3,14 @@ import MemberEntity from '../../api/memberEntity';
 
 
 interface Props extends React.Props<MemberEditableRow> {
-    // member: MemberEntity
     onSave: (event: any) => any;
 }
 
-interface State {
-    login: string;
-    gender: string;
-    age: any;
+interface State{
+    avatar_url?: string;
+    login?: string;
+    gender?: string;
+    age?: any;
 }
 
 export default class MemberEditableRow extends React.Component<Props, State> {
@@ -18,45 +18,39 @@ export default class MemberEditableRow extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
+            avatar_url: "",
             login: "",
             gender: "Female",
             age: 0
         };
+
+        this.onAvatarUrlChanged = this.onAvatarUrlChanged.bind(this);
+        this.onLoginChanged = this.onLoginChanged.bind(this);
+        this.onAgeChanged = this.onAgeChanged.bind(this);
+        this.onGenderChanged = this.onGenderChanged.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
 
     public onClick(event) {
-        //creamos el member a partir del state
-        var member = new MemberEntity();
-
-        member.login = this.state.login;
-        member.gender = this.state.gender;
-        member.age = this.state.age;
+        var member = new MemberEntity(this.state.login, this.state.gender, this.state.age, this.state.avatar_url);
 
         this.props.onSave(member);
     }
 
+    private onAvatarUrlChanged(event){
+        this.setState({ avatar_url: event.target.value });
+    }
+
     private onLoginChanged(event){
-        this.setState({
-            login: event.target.value,
-            gender: this.state.gender,
-            age: this.state.age
-        });
+        this.setState({ login: event.target.value });
     }
 
     private onGenderChanged(event){
-        this.setState({
-            login: this.state.login,
-            gender: event.target.value,
-            age: this.state.age
-        });
+        this.setState({ gender: event.target.value });
     }
 
     private onAgeChanged(event){
-        this.setState({
-            login: this.state.login,
-            gender: this.state.gender,
-            age: parseInt(event.target.value)
-        });
+        this.setState({ age: parseInt(event.target.value) });
     }
 
     public render() {
@@ -65,7 +59,8 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                 <input
                     type="text"
                     className="form-control"
-                    name="fname"                    
+                    name="avatarUrl"         
+                    onBlur={this.onAvatarUrlChanged}       
                 />
             </td>
             <td>
@@ -73,8 +68,8 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                     type="text" 
                     className="form-control" 
                     name="fname"
-                    onChange={this.onLoginChanged.bind(this)}
-                    value={this.state.login}/>
+                    onBlur={this.onLoginChanged}
+                 />
             </td>
             <td>
                 <input 
@@ -83,21 +78,20 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                     name="quantity" 
                     min="1" 
                     max="120"
-                    onChange={this.onAgeChanged.bind(this)}
-                    value={this.state.age}/>
+                    onBlur={this.onAgeChanged}
+                />
             </td>
             <td>
                 <select 
                     className="form-control"
-                    onChange={this.onGenderChanged.bind(this)}
-                    value={this.state.gender}>
+                    onBlur={this.onGenderChanged}>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                     <option value="Others">Other</option>
                 </select>
             </td>
             <td>
-                <button type="button" className="btn btn-success" onClick={this.onClick.bind(this)}>Add</button>
+                <button type="button" className="btn btn-success" onClick={this.onClick}>Add</button>
             </td>
         </tr>
         );

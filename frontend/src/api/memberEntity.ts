@@ -6,11 +6,11 @@ export default class MemberEntity {
   gender: string;
   age: number;
 
-  constructor() {
+  constructor(login?: string, gender?: string, age?: number, avatar_url?: string) {
     this.id = -1;
-    this.login = "";
-    this.avatar_url = "";
-    this.gender = "";
-    this.age;
-  }  
+    this.login = login ? login : '';
+    this.avatar_url = avatar_url ? avatar_url : "";
+    this.gender = gender ? gender : 'Female';
+    this.age = age ? age : 0;
+  }
 }
