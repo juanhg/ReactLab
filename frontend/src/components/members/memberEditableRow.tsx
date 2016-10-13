@@ -1,12 +1,13 @@
 import * as React from 'react';
 import MemberEntity from '../../api/memberEntity';
+var autobind = require('autobind-decorator');
 
 
 interface Props extends React.Props<MemberEditableRow> {
     onSave: (event: any) => any;
 }
 
-interface State{
+interface State {
     avatar_url?: string;
     login?: string;
     gender?: string;
@@ -23,33 +24,32 @@ export default class MemberEditableRow extends React.Component<Props, State> {
             gender: "Female",
             age: 0
         };
-
-        this.onAvatarUrlChanged = this.onAvatarUrlChanged.bind(this);
-        this.onLoginChanged = this.onLoginChanged.bind(this);
-        this.onAgeChanged = this.onAgeChanged.bind(this);
-        this.onGenderChanged = this.onGenderChanged.bind(this);
-        this.onClick = this.onClick.bind(this);
     }
 
+    @autobind
     public onClick(event) {
         var member = new MemberEntity(this.state.login, this.state.gender, this.state.age, this.state.avatar_url);
 
         this.props.onSave(member);
     }
 
-    private onAvatarUrlChanged(event){
+    @autobind
+    private onAvatarUrlChanged(event) {
         this.setState({ avatar_url: event.target.value });
     }
 
-    private onLoginChanged(event){
+    @autobind
+    private onLoginChanged(event) {
         this.setState({ login: event.target.value });
     }
 
-    private onGenderChanged(event){
+    @autobind
+    private onGenderChanged(event) {
         this.setState({ gender: event.target.value });
     }
 
-    private onAgeChanged(event){
+    @autobind
+    private onAgeChanged(event) {
         this.setState({ age: parseInt(event.target.value) });
     }
 
@@ -59,30 +59,30 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                 <input
                     type="text"
                     className="form-control"
-                    name="avatarUrl"         
-                    onBlur={this.onAvatarUrlChanged}       
-                />
+                    name="avatarUrl"
+                    onBlur={this.onAvatarUrlChanged}
+                    />
             </td>
             <td>
-                <input 
-                    type="text" 
-                    className="form-control" 
+                <input
+                    type="text"
+                    className="form-control"
                     name="fname"
                     onBlur={this.onLoginChanged}
-                 />
+                    />
             </td>
             <td>
-                <input 
-                    type="number" 
-                    className="form-control" 
-                    name="quantity" 
-                    min="1" 
+                <input
+                    type="number"
+                    className="form-control"
+                    name="quantity"
+                    min="1"
                     max="120"
                     onBlur={this.onAgeChanged}
-                />
+                    />
             </td>
             <td>
-                <select 
+                <select
                     className="form-control"
                     onBlur={this.onGenderChanged}>
                     <option value="Female">Female</option>

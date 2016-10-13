@@ -4,6 +4,8 @@ import memberAPI from '../../api/memberAPI';
 import MemberRow from './memberRow';
 import MemberEditableRow from './memberEditableRow';
 
+var autobind = require('autobind-decorator');
+
 interface Props extends React.Props<MembersPage> {
 }
 
@@ -21,7 +23,7 @@ export default class MembersPage extends React.Component<Props, State> {
     // set initial state
     this.state = { members: [] };
 
-    this.saveMember = this.saveMember.bind(this);
+    this.saveMember = this.saveMember;
   }
 
   // Changing to componentDidMount to handle initial ajax request response
@@ -35,8 +37,8 @@ export default class MembersPage extends React.Component<Props, State> {
     }.bind(this))
   }
 
+  @autobind
   public saveMember(member) {
-    //concat returns a new array
     this.setState({members: this.state.members.concat([member])});
   }
 
