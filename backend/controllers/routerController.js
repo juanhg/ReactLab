@@ -1,5 +1,5 @@
 var TVShowCtrl = require('./tvshow');
-var PersonCtrl = require('./person');
+var MemberCtrl = require('./member');
 
 
 // API routes
@@ -7,7 +7,7 @@ var PersonCtrl = require('./person');
 exports.initRouter = function (router) {
     addMainRoute(router);
     addTVShowRoutes(router);
-    addPersonRoutes(router);
+    addMemberRoutes(router);
 };
 
 addMainRoute = function (router) {
@@ -30,15 +30,15 @@ addTVShowRoutes = function (router) {
         .delete(TVShowCtrl.deleteTVShow);
 };
 
-addPersonRoutes = function (router) {
-    router.route('/person')
-        .post(PersonCtrl.addPerson);
-    router.route('/persons')
-        .get(PersonCtrl.findAllPersons);
-    router.route('/persons/mocked')
-        .get(PersonCtrl.addMockedPerson);
-    router.route('/persons/:id')
-        .get(PersonCtrl.findById)
-        .post(PersonCtrl.deletePerson);
+addMemberRoutes = function (router) {
+    router.route('/member')
+        .post(MemberCtrl.addMember);
+    router.route('/members')
+        .get(MemberCtrl.findAllMembers);
+    router.route('/members/mocked')
+        .get(MemberCtrl.addMockedMember);
+    router.route('/members/:id')
+        .get(MemberCtrl.findById)
+        .post(MemberCtrl.deleteMember);
 };
 

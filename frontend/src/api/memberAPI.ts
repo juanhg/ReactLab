@@ -17,7 +17,7 @@ class MemberAPI {
     var deferred = Q.defer<Array<MemberEntity>>();
 
     $.ajax({
-      url: 'http://localhost:3000/persons',
+      url: 'http://localhost:3000/members',
       dataType: "jsonp",
       success: function (data) {
         var members: Array<MemberEntity>;
@@ -43,7 +43,7 @@ class MemberAPI {
   };
 
   addMember(member: MemberEntity): void {
-    $.post("http://localhost:3000/person",
+    $.post("http://localhost:3000/member",
       {
         login: member.login,
         avatar_url: member.avatar_url,
@@ -54,7 +54,7 @@ class MemberAPI {
 
   removeMember(id: string): void {
     //TODO: Aviso de cross-domain en consola
-    $.post('http://localhost:3000/persons/' + id, undefined, 'jsonp');
+    $.post('http://localhost:3000/members/' + id, undefined, 'jsonp');
   };
 }
 
