@@ -38,6 +38,7 @@ addPersonRoutes = function (router) {
     router.route('/persons/mocked')
         .get(PersonCtrl.addMockedPerson);
     router.route('/persons/:id')
-        .get(PersonCtrl.findById);
+        .get(PersonCtrl.findById)
+        .post(PersonCtrl.deletePerson);
 };
 

@@ -52,6 +52,10 @@ class MemberAPI {
         gender: member.gender
       });
   };
+
+  removeMember(id: string): void {
+    $.post('http://localhost:3000/persons/' + id, function(){}, 'jsonp');
+  };
 }
 
 export default new MemberAPI();

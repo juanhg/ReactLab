@@ -51,3 +51,13 @@ exports.addPerson = function (req, response) {
     });
 };
 
+exports.deletePerson = function (req, response) {
+    console.log('DELETE person');
+
+    Person.findById(req.params.id, function (error, person) {
+        person.remove(function (error) {
+            handler.handleResponse(response, person, error)
+        });
+    });
+};
+

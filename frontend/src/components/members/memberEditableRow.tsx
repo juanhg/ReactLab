@@ -61,7 +61,7 @@ export default class MemberEditableRow extends React.Component<Props, State> {
         var me = this;
         var file = event.target.files[0];
         var reader = new FileReader();
-        debugger
+
         reader.onload = function (e) {
             var imageElement = document.getElementById('avatar-preview');
             var src =  e.target['result'];

@@ -22,8 +22,6 @@ export default class MembersPage extends React.Component<Props, State> {
     super(props);
     // set initial state
     this.state = { members: [] };
-
-    this.saveMember = this.saveMember;
   }
 
   // Changing to componentDidMount to handle initial ajax request response
@@ -31,16 +29,25 @@ export default class MembersPage extends React.Component<Props, State> {
     var promise: Q.Promise<MemberEntity[]> = memberAPI.getAllMembersAsync();
 
     promise.done(function (members) {
-      // React only triggers a re-render if you use setState to update the state.
-      // http://stackoverflow.com/questions/25937369/react-component-not-re-rendering-on-state-change
       this.setState({ members: members.reverse() })
     }.bind(this))
   }
 
   @autobind
   public saveMember(member) {
-    this.setState({members: [member].concat(this.state.members)});
-    memberAPI.addMember(member);   
+    this.setState({ members: [member].concat(this.state.members) });
+    memberAPI.addMember(member);
+  }
+
+  @autobind
+  public removeMember(member) {
+    var index = this.state.members.indexOf(member);
+
+    memberAPI.removeMember(member.id);
+
+    var newMembers = this.state.members.slice(); //copy array
+    newMembers.splice(index, 1); //remove element
+    this.setState({ members: newMembers }); //update state
   }
 
   public render() {
@@ -66,10 +73,10 @@ export default class MembersPage extends React.Component<Props, State> {
             </tr>
           </thead>
           <tbody>
-            <MemberEditableRow onSave={this.saveMember}/>
+            <MemberEditableRow onSave={this.saveMember} />
             {
               this.state.members.map((member: MemberEntity) =>
-                <MemberRow key={member.id} member = {member}/>
+                <MemberRow key={member.id} member={member} onRemove={this.removeMember} />
               )
             }
           </tbody>
