@@ -22,11 +22,10 @@ exports.findById = function (req, response) {
 };
 
 //Get /persons/mocked
-exports.AddMockedPerson = function (req, response) {
+exports.addMockedPerson = function (req, response) {
     console.log('PUT persons/mocked')
     var personMock = new Person({
         name: 'Juan',
-        lastName: 'Hernández',
         age: 26,
         gender: 'Male'
     });
@@ -36,15 +35,15 @@ exports.AddMockedPerson = function (req, response) {
     });
 };
 
-exports.addTVShow = function (req, response) {
-    console.log('POST');
-    console.log(req.body);
+exports.addPerson = function (req, response) {
+    console.log('POST person');
+    var member = req.body;
 
-    var person = new Person({
-        name: req.body.name,
-        lastName: req.body.lastname,
-        age: req.body.age,
-        gender: req.body.gender,
+    var person =  new Person({
+        name: member['login'],
+        age: member['age'],
+        gender: member['gender'],
+        avatar_url: member['avatar_url']
     });
 
     person.save(function (error, person) {

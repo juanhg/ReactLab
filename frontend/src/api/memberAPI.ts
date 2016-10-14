@@ -25,10 +25,11 @@ class MemberAPI {
         console.log(data);
         members = data.map((serverMember) => {
           var member: MemberEntity = new MemberEntity();
-          
+          var defaultAvatar = 'https://maxcdn.icons8.com/windows10/PNG/48/Users/person_female-48.png';
+
           member.id = serverMember._id;
           member.login = serverMember.name;
-          member.avatar_url = 'https://maxcdn.icons8.com/windows10/PNG/48/Users/person_female-48.png';
+          member.avatar_url = serverMember.avatar_url ? serverMember.avatar_url : defaultAvatar;
           member.gender = serverMember.gender;
           member.age = serverMember.age;
 
@@ -40,7 +41,17 @@ class MemberAPI {
     });
 
     return deferred.promise;
-  }
+  };
+
+  addMember(member: MemberEntity): void {
+    $.post("http://localhost:3000/person",
+      {
+        login: member.login,
+        avatar_url: member.avatar_url,
+        age: member.age,
+        gender: member.gender
+      });
+  };
 }
 
 export default new MemberAPI();

@@ -31,10 +31,12 @@ addTVShowRoutes = function (router) {
 };
 
 addPersonRoutes = function (router) {
+    router.route('/person')
+        .post(PersonCtrl.addPerson);
     router.route('/persons')
         .get(PersonCtrl.findAllPersons);
     router.route('/persons/mocked')
-        .get(PersonCtrl.AddMockedPerson);
+        .get(PersonCtrl.addMockedPerson);
     router.route('/persons/:id')
         .get(PersonCtrl.findById);
 };

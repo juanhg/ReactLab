@@ -33,13 +33,14 @@ export default class MembersPage extends React.Component<Props, State> {
     promise.done(function (members) {
       // React only triggers a re-render if you use setState to update the state.
       // http://stackoverflow.com/questions/25937369/react-component-not-re-rendering-on-state-change
-      this.setState({ members: members })
+      this.setState({ members: members.reverse() })
     }.bind(this))
   }
 
   @autobind
   public saveMember(member) {
     this.setState({members: [member].concat(this.state.members)});
+    memberAPI.addMember(member);   
   }
 
   public render() {
