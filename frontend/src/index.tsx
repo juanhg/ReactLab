@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory  } from 'react-router';
-import App from './components/app.tsx';
+import App from './components/app';
 import AboutPage from './components/about/aboutPage';
 import MembersPage from './components/members/membersPage';
 

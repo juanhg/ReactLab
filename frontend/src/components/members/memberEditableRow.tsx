@@ -1,6 +1,9 @@
 import * as React from 'react';
 import MemberEntity from '../../api/memberEntity';
+
 var autobind = require('autobind-decorator');
+
+import ImageLoader from '../utils/ImageLoader';
 
 
 interface Props extends React.Props<MemberEditableRow> {
@@ -53,15 +56,38 @@ export default class MemberEditableRow extends React.Component<Props, State> {
         this.setState({ age: parseInt(event.target.value) });
     }
 
+    @autobind
+    private onImageLoad(event){
+        var me = this;
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        debugger
+        reader.onload = function (e) {
+            var imageElement = document.getElementById('avatar-preview');
+            var src =  e.target['result'];
+            imageElement['src'] = src;
+            me.state.avatar_url = src;
+        };
+
+        reader.readAsDataURL(file);
+    }
+    
+
     public render() {
         return (<tr>
             <td>
-                <input
-                    type="text"
-                    className="form-control"
-                    name="avatarUrl"
-                    onBlur={this.onAvatarUrlChanged}
-                    />
+                <div>
+                    <img id="avatar-preview"
+                        name="avatarUrl"
+                        className="avatar-preview"
+                        src="https://maxcdn.icons8.com/windows10/PNG/48/Users/person_female-48.png"
+                        onBlur={this.onAvatarUrlChanged} />
+                    <ImageLoader 
+                        className="image-loader"
+                        fileInputClassName="btn btn-primary file-input"
+                        placeholder="Upload Image"
+                        onImageLoad={this.onImageLoad}/>
+                </div>
             </td>
             <td>
                 <input
