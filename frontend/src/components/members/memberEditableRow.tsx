@@ -11,8 +11,8 @@ interface Props extends React.Props<MemberEditableRow> {
 }
 
 interface State {
-    avatar_url?: string;
-    login?: string;
+    src?: string;
+    name?: string;
     gender?: string;
     age?: any;
 }
@@ -21,29 +21,38 @@ export default class MemberEditableRow extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            avatar_url: "",
-            login: "",
+        this.state = this.getInitState();
+    }
+
+    @autobind
+    public clearMember(){
+       this.setState(this.getInitState());
+    }
+
+    public getInitState(){
+        return {
+            src: "https://maxcdn.icons8.com/windows10/PNG/48/Users/person_female-48.png",
+            name: "",
             gender: "Female",
             age: 0
-        };
+        }
     }
 
     @autobind
     public onClick(event) {
-        var member = new MemberEntity(this.state.login, this.state.gender, this.state.age, this.state.avatar_url);
-
+        var member = new MemberEntity(this.state.name, this.state.gender, this.state.age, this.state.src);
         this.props.onSave(member);
+        this.clearMember();
     }
 
     @autobind
     private onAvatarUrlChanged(event) {
-        this.setState({ avatar_url: event.target.value });
+        this.setState({ src: event.target.value });
     }
 
     @autobind
     private onLoginChanged(event) {
-        this.setState({ login: event.target.value });
+        this.setState({ name: event.target.value });
     }
 
     @autobind
@@ -66,7 +75,7 @@ export default class MemberEditableRow extends React.Component<Props, State> {
             var imageElement = document.getElementById('avatar-preview');
             var src =  e.target['result'];
             imageElement['src'] = src;
-            me.state.avatar_url = src;
+            me.state.src = src;
         };
 
         reader.readAsDataURL(file);
@@ -80,13 +89,14 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                     <img id="avatar-preview"
                         name="avatarUrl"
                         className="avatar-preview"
-                        src="https://maxcdn.icons8.com/windows10/PNG/48/Users/person_female-48.png"
-                        onBlur={this.onAvatarUrlChanged} />
+                        src={this.state.src}
+                        value={this.state.src}
+                        onChange={this.onAvatarUrlChanged} />
                     <ImageLoader 
                         className="image-loader"
                         fileInputClassName="btn btn-primary file-input"
                         placeholder="Upload Image"
-                        onImageLoad={this.onImageLoad}/>
+                        onImageLoad={this.onImageLoad} />
                 </div>
             </td>
             <td>
@@ -94,7 +104,8 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                     type="text"
                     className="form-control"
                     name="fname"
-                    onBlur={this.onLoginChanged}
+                    onChange={this.onLoginChanged}
+                    value={this.state.name}
                     />
             </td>
             <td>
@@ -104,13 +115,16 @@ export default class MemberEditableRow extends React.Component<Props, State> {
                     name="quantity"
                     min="1"
                     max="120"
-                    onBlur={this.onAgeChanged}
+                    onChange={this.onAgeChanged}
+                    value={this.state.age}
+
                     />
             </td>
             <td>
                 <select
                     className="form-control"
-                    onBlur={this.onGenderChanged}>
+                    onChange={this.onGenderChanged}
+                    value={this.state.gender}>
                     <option value="Female">Female</option>
                     <option value="Male">Male</option>
                     <option value="Others">Other</option>
