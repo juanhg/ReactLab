@@ -16,7 +16,6 @@ class MemberAPI {
     // Going more modern: check 'fetch' and ES6 Promise
     var deferred = Q.defer<Array<MemberEntity>>();
 
-
     $.ajax({
       url: 'http://localhost:3000/persons',
       dataType: "jsonp",
@@ -54,7 +53,8 @@ class MemberAPI {
   };
 
   removeMember(id: string): void {
-    $.post('http://localhost:3000/persons/' + id, function(){}, 'jsonp');
+    //TODO: Aviso de cross-domain en consola
+    $.post('http://localhost:3000/persons/' + id, undefined, 'jsonp');
   };
 }
 
